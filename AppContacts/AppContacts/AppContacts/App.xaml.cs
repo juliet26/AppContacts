@@ -39,7 +39,7 @@ namespace AppContacts
 		{
 			InitializeComponent();
 
-			MainPage = new AppContacts.View.ContactsPage();
+			MainPage = new NavigationPage(new ContactsPage());
 		}
 
 		protected override void OnStart ()

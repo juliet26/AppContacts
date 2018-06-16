@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using AppContacts.ViewModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,6 +15,7 @@ namespace AppContacts.View
 		public ContactsPage ()
 		{
 			InitializeComponent ();
+            this.BindingContext = new ContactsPageViewModel(Navigation);
 		}
 	}
 }
