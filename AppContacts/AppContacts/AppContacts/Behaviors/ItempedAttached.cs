@@ -8,25 +8,17 @@ namespace AppContacts.Behaviors
 {
     public class ItempedAttached
     {
-        public static readonly BindableProperty CommandProperty = BindableProperty.CreateAttached(
+        public static readonly BindableProperty CommandProperty = 
+            BindableProperty.CreateAttached(
             propertyName: "Command",
             returnType: typeof(ICommand),
             declaringType: typeof(ListView),
             defaultValue: null,
-            defaultBindingMode: BindingMode.TwoWay,
+            defaultBindingMode: BindingMode.OneWay,
             validateValue: null,
             propertyChanged: OnItemTappedChanged);
 
-        private static void OnItemTappedChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            var control = bindable as ListView;
-            if (control != null)
-            {
-                control.ItemTapped -= Control_ItemTapped;
-                control.ItemTapped += Control_ItemTapped;
-            }
-        }
-
+        
         private static void Control_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             var control = sender as ListView;
@@ -45,9 +37,30 @@ namespace AppContacts.Behaviors
         {
             bindable.SetValue(CommandProperty, value);
         }
+        private static void OnItemTappedChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var control = bindable as ListView;
+            if (control != null)
+            {
+                control.ItemTapped -= Control_ItemTapped;
+                control.ItemTapped += Control_ItemTapped;
+            }
+        }
+
+        private static void OnItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            var control = sender as ListView;
+            var command = GetItemTapped(control);
+            if (command != null && command.CanExecute(e.Item))
+            {
+                command.Execute(e.Item);
+            }
+        }
+
         public ItempedAttached()
         {
 
         }
+
     }
 }

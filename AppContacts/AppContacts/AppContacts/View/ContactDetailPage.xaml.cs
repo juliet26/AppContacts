@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using AppContacts.ViewModel;
+using AppContacts.Model;
 
 namespace AppContacts.View
 {
@@ -15,10 +16,17 @@ namespace AppContacts.View
 	{
         public ContactDetailPageViewModel ViewModel { get; set;
         }
-		public ContactDetailPage ()
+		public ContactDetailPage (Contact contact= null)
 		{
-			InitializeComponent ();
-            ViewModel = new ContactDetailPageViewModel(Navigation);
+            InitializeComponent();
+            if (contact == null)
+            {
+                ViewModel = new ContactDetailPageViewModel(Navigation);
+            }
+            else
+            {
+                ViewModel = new ContactDetailPageViewModel(Navigation, contact);
+            }
             this.BindingContext = ViewModel;
 		}
 	}

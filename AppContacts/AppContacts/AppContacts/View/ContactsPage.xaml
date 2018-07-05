@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:AppContactsBehaviors"
              x:Class="AppContacts.View.ContactsPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Agregar"
@@ -8,4 +9,45 @@
                      Command="{Binding AddContactCommand}">
         </ToolbarItem>
     </ContentPage.ToolbarItems>
+    <ListView
+        ItemSource="{Binding ContactsList}"
+        IsGroupingEnabled="True"
+        GroupShortNameBinding="{Binding Key}"
+        SelectedItem="{Binding CurrentContact}"
+        local:ItemTappedAttached.Command="{Binding ItemTappedCommand}">
+    </ListView>
+    <ListView.GroupHeaderTemplate>
+        <DateTemplate>
+            <ViewCell
+                Height="30">
+                <StackLayout
+                    VerticalOptions="FillAndExpand"
+                    Padding="5"
+                    BackgroundColor="Green">
+                    <Label
+                        Text="{Binding Key}"
+                        TextColor="White"
+                        VerticalOptions="Center"
+                        HeightRequest="25"></Label>
+                </StackLayout>
+            </ViewCell>
+        </DateTemplate>
+    </ListView.GroupHeaderTemplate>
+    <ListView.ItemTemplate>
+        <DateTemplate>
+            <ViewCell>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Text="{Binding Nombre}"></Label>
+                    <Label
+                        Text="{Binding Telefono}"
+                        Grid.Column="1"></Label>
+                </Grid>
+            </ViewCell>
+        </DateTemplate>
+    </ListView.ItemTemplate>
 </ContentPage>

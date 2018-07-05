@@ -15,9 +15,17 @@ namespace AppContacts.ViewModel
         public Command DeleteContactCommand { get; set; }
         public INavigation Navigation { get; set; }
 
-        public ContactDetailPageViewModel(INavigation navigation)
+        public ContactDetailPageViewModel(INavigation navigation, Contact contact = null)
         {
-            this.Navigation = navigation;
+            Navigation = navigation;
+            if (contact == null)
+            {
+                CurrentsContacto = new Contact();
+            }
+            else
+            {
+                CurrentsContacto = contact;
+            }
             CurrentsContacto = new Contact();
             SaveContactCommand = new Command(async () => await SaveContact());
             DeleteContactCommand = new Command(async () => await DeleteContact());

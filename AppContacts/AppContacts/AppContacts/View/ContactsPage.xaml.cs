@@ -15,7 +15,12 @@ namespace AppContacts.View
 		public ContactsPage ()
 		{
 			InitializeComponent ();
-            this.BindingContext = new ContactsPageViewModel(Navigation);
+            
 		}
-	}
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            this.BindingContext = new ContactsPageViewModel(Navigation);
+        }
+    }
 }
